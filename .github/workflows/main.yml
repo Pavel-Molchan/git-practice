@@ -1,0 +1,19 @@
+# Имя нашего пайплайна, будет отображаться на GitHub
+name: Check Bash Script
+
+# Триггер: запускать на любое событие push в любую ветку
+on: [push]
+
+jobs:
+  lint-script:
+    # Указываем, на какой виртуальной машине запустить задачу (последняя Ubuntu)
+    runs-on: ubuntu-latest
+
+    steps:
+      # Шаг 1: Скачиваем код из репозитория внутрь виртуальной машины
+      - name: Checkout code
+        uses: actions/checkout@v4 # Используем готовое действие для скачивания кода
+
+      # Шаг 2: Запускаем проверку нашего скрипта
+      - name: Run ShellCheck
+        run: shellcheck log_analyzer.sh
